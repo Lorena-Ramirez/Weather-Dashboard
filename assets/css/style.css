@@ -1,0 +1,14 @@
+.search-row {
+    border: 2px solid black;
+    width: 30%;
+    float:left; 
+}
+
+.search-box{
+    padding-bottom: 15px;
+}
+  
+.forecast-row{
+    border: 2px solid red;
+    margin-left:30%;
+}
