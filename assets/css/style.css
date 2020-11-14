@@ -9,12 +9,22 @@
 }
   
 .forecast-row{
-    border: 2px solid red;
     margin-left:30%;
+    
+}
+
+.day-cards{
+    width:20%;
+    display:flex;
+    border: 2px solid white;
+    border-radius: 5%;
+    background-color: rgb(70, 111, 223);
+    color:white
 }
 
 .forecast-card{
     width: 100%;
+    
 }
 
 .cityBtn{
@@ -24,5 +34,5 @@
 }
 .card{
     width: 90%;
-    margin: 10px;
+    margin: 5px;
 }
