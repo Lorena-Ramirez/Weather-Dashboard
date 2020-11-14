@@ -5,7 +5,7 @@ $(document).ready(function () {
 function saveHistory(city){
     
       var historyCard = $("<div>");
-      historyCard.addClass("card");
+      historyCard.addClass("card history-card");
 
       var cardBody = $("<div>");
       cardBody.addClass("card-body");
@@ -43,7 +43,7 @@ $("#searchBtn").on("click", function displayWeather (event){
         var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
         icon.attr("src",iconURL);
 
-       $("#city").text(data.name + " (" + moment().subtract(10, 'days').calendar() +")");
+       $("#city").text(data.name + " (" + moment().format('L') +")");
        $("#temperature").text("Temperature: "+data.main.temp+"°F");
        $("#humidity").text("Humidity: "+data.main.humidity+"%");
        $("#windSpeed").text("WindSpeed: "+data.wind.speed+" MPH");
@@ -70,7 +70,7 @@ $("#searchBtn").on("click", function displayWeather (event){
 
 
     var secondURL = "https://api.openweathermap.org/data/2.5/forecast?q="
-    + city + "&appid=e843562227bb1a74a27f6a81efac2153";
+    + city + "&units=imperial&appid=e843562227bb1a74a27f6a81efac2153";
 
     $.ajax({
       url: secondURL,
@@ -79,9 +79,37 @@ $("#searchBtn").on("click", function displayWeather (event){
       .then(function (forecast) {
       
         var results = forecast.list;
-        console.log(results);
-        var dayForecast = ("<card>");
-        $(".forecast-row")
+console.log(results);
+
+        for(var i=2;i<35;i+=8){
+        var dayForecast = $("<div>");
+        dayForecast.addClass("day-cards");
+        
+        var forecastBody = $("<div>");
+        forecastBody.addClass("card-body");
+
+        var date = $("<h5>");
+        date.text(results[i].dt_txt);
+
+        var icon = $("<img>");
+        var iconCode=results[i].weather[0].icon;
+        var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
+        icon.attr("src",iconURL);
+
+         var temp = $("<p>");
+         temp.text("Temperature: "+results[i].main.temp+"°F");
+
+         var humidity = $("<p>");
+         humidity.text("Humidity: "+results[i].main.humidity+"%");
+      
+     
+        $(".forecast-days-row").append(dayForecast);
+        dayForecast.append(forecastBody);
+        forecastBody.append(date);
+        forecastBody.append(icon);
+        forecastBody.append(temp);
+        forecastBody.append(humidity);
+        }
         
 
 
