@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-var searchHistory = [];
+// $("#searchInput").val(localStorage.getItem("city"));
+
 function saveHistory(city){
-    searchHistory.push(city);
     
       var historyCard = $("<div>");
       historyCard.addClass("card");
@@ -18,13 +18,16 @@ function saveHistory(city){
       historyCard.append(cardBody);
       cardBody.append(cityName);
  
-
 }
 
-$("#searchBtn").on("click", function (event){
+function storeHistory(){
+  localStorage.setItem("city",$("#searchInput").val());
+}
+
+$("#searchBtn").on("click", function displayWeather (event){
     event.preventDefault()
     var city = $("#searchInput").val();
-    console.log(city);
+    
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" 
     + city + "&units=imperial&appid=e843562227bb1a74a27f6a81efac2153";
    
@@ -34,11 +37,10 @@ $("#searchBtn").on("click", function (event){
       })
         .then(function (response) {
             var data = response;
-         console.log(data);
 
         var icon = $("<img>");
         var iconCode=data.weather[0].icon;
-        var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
         icon.attr("src",iconURL);
 
        $("#city").text(data.name + " (" + moment().subtract(10, 'days').calendar() +")");
@@ -65,7 +67,31 @@ $("#searchBtn").on("click", function (event){
       })
     });
 
+
+
+    var secondURL = "https://api.openweathermap.org/data/2.5/forecast?q="
+    + city + "&appid=e843562227bb1a74a27f6a81efac2153";
+
+    $.ajax({
+      url: secondURL,
+      method: "GET"
+     })
+      .then(function (forecast) {
+      
+        var results = forecast.list;
+        console.log(results);
+        var dayForecast = ("<card>");
+        $(".forecast-row")
+        
+
+
+    });
+
+
    saveHistory(city);
+   storeHistory();
+   $("#searchInput").val("");
+
   });
 
 
