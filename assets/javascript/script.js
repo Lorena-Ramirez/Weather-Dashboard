@@ -4,7 +4,6 @@ var searchHistory = [];
 function saveHistory(city){
     searchHistory.push(city);
     
-    for(var i=0; i<searchHistory.length; i++){
       var historyCard = $("<div>");
       historyCard.addClass("card");
 
@@ -19,13 +18,6 @@ function saveHistory(city){
       historyCard.append(cardBody);
       cardBody.append(cityName);
  
-
-
-    }
-    
-
-
-
 
 }
 
