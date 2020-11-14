@@ -2,6 +2,27 @@ $(document).ready(function () {
 
 var searchHistory = [];
 function saveHistory(city){
+    searchHistory.push(city);
+    
+    for(var i=0; i<searchHistory.length; i++){
+      var historyCard = $("<div>");
+      historyCard.addClass("card");
+
+      var cardBody = $("<div>");
+      cardBody.addClass("card-body");
+      
+      var cityName = $("<button>");
+      cityName.addClass("cityBtn")
+      cityName.text(city);
+
+      $(".search-row").append(historyCard);
+      historyCard.append(cardBody);
+      cardBody.append(cityName);
+ 
+
+
+    }
+    
 
 
 
@@ -22,7 +43,7 @@ $("#searchBtn").on("click", function (event){
         .then(function (response) {
             var data = response;
          console.log(data);
-         
+
         var icon = $("<img>");
         var iconCode=data.weather[0].icon;
         var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
@@ -52,7 +73,7 @@ $("#searchBtn").on("click", function (event){
       })
     });
 
-
+   saveHistory(city);
   });
 
 
